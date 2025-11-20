@@ -1,0 +1,197 @@
+/* src/styles/recommendedPage.css */
+
+.recommended-page-panel {
+    margin-top: 24px;
+    padding: 28px 40px;
+    display: flex;
+    gap: 40px;
+    align-items: stretch;
+    min-height: 420px;
+}
+
+/* LEFT – big book */
+.rec-left {
+    flex: 0 0 32%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    font-size: 12px;
+}
+
+.rec-left .h1 {
+    align-items: left;
+}
+
+.recommended-page-panel .rec-left .recommendAsTitle {
+    flex-direction: column;
+}
+
+.rec-main-cover-wrap {
+    width: 80%;
+    max-width: 260px;
+    aspect-ratio: 3 / 4.5;
+    border-radius: 18px;
+    overflow: hidden;
+    cursor: pointer;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+}
+
+.rec-main-cover {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.rec-main-meta {
+    width: 100%;
+    max-width: 260px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    text-align: left;
+}
+
+.rec-main-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.rec-main-author {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.rec-main-rating {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 6px;
+}
+
+.rec-main-stars {
+    color: #1ee94a;
+    letter-spacing: 3px;
+    font-size: 14px;
+}
+
+.rec-main-rating-number {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.85);
+}
+
+/* RIGHT – two strips */
+.rec-right {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+/* Section header */
+.rec-section {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.rec-section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.rec-section-header h3 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+    color: #fbfbf6;
+}
+
+.rec-arrows {
+    display: flex;
+    gap: 8px;
+}
+
+.rec-arrows button {
+    width: 28px;
+    height: 28px;
+    border-radius: 999px;
+    border: none;
+    background: rgba(255, 255, 255, 0.05);
+    color: #fbfbf6;
+    cursor: pointer;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.rec-arrows button:hover {
+    background: rgba(255, 255, 255, 0.12);
+}
+
+/* Strip of 3 cards */
+.rec-strip {
+    display: flex;
+    gap: 26px;
+}
+
+/* small cards */
+.rec-card {
+    flex: 0 0 120px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: transform 220ms ease, box-shadow 220ms ease;
+}
+
+.rec-card:hover {
+    transform: translateY(-4px) scale(1.03);
+    box-shadow: 0 16px 30px rgba(0, 0, 0, 0.55);
+}
+
+.rec-card-cover-wrap {
+    width: 100%;
+    aspect-ratio: 3 / 4.5;
+    border-radius: 14px;
+    overflow: hidden;
+}
+
+.rec-card-cover {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.rec-card-stars {
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: #1ee94a;
+}
+
+/* basic responsiveness */
+@media (max-width: 1000px) {
+    .recommended-page-panel {
+        flex-direction: column;
+        gap: 28px;
+    }
+
+    .rec-left {
+        flex-direction: row;
+        justify-content: flex-start;
+    }
+
+    .rec-main-cover-wrap {
+        width: 40%;
+        max-width: 220px;
+    }
+
+    .rec-main-meta {
+        max-width: none;
+    }
+}

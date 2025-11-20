@@ -1,0 +1,35 @@
+
+/* Calendar panel (right column) */
+.calendar {
+  min-height: 220px;
+  display:flex;
+  flex-direction:column;
+  gap:20px;
+}
+
+.calendar .title {
+  font-weight:600;
+}
+
+.calendar-grid {
+  display:grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap:8px;
+  color: #ddd;
+}
+
+.calendar-day {
+  height: 35px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:50px;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.calendar-day.active {
+  background: #1EE94A;
+  color: #00110a;
+  box-shadow: 0 6px 18px rgba(41,208,122,0.2);
+}

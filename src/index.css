@@ -1,0 +1,16 @@
+/* import Manrope, fallback Poppins */
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;600;700&family=Poppins:wght@300;400;600&display=swap');
+
+:root {
+  --bg-dark: #151515;
+  --panel-dark: rgba(10,10,10,0.55);
+  --panel-ink: rgba(0,0,0,0.5);
+  --glass-overlay: rgba(255,255,255,0.03);
+  --accent-green: #29d07a;
+  --muted: #bdbdbd;
+  --white: #ffffff;
+  --card-radius: 20px;
+}
+
+* { box-sizing: border-box; }
+html, body, #root { height: 100%; margin: 0; font-family: 'Manrope', 'Poppins', sans-serif; background: var(--bg-dark); color: var(--white); }
