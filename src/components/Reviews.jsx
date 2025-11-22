@@ -14,7 +14,7 @@ export default function Review() {
   // dummy book for now
   const reviewsByBook = [
     [
-      { id: "a1", name: "John Staten M.", rating: 4, text: "Review for book 1..." },
+      { id: "a1", name: "John Staten M.", rating: 4, text: "ReviewPage for book 1..." },
       { id: "a2", name: "Rina C.", rating: 5, text: "Another review for book 1..." },
       { id: "a3", name: "Anna Berg", rating: 4, text: "Nice thoughts about book 1." }
     ],

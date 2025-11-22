@@ -8,6 +8,7 @@ import Saved from "/src/pages/Saved.jsx";
 import '../styles/dashboard.css';
 import { useSavedBooks } from "/src/components/Saved/SavedBooksContext.jsx";
 import RecommendedPage from "/src/pages/RecommendPage.jsx";
+import ReviewPage from "./ReviewPage.jsx";
 
 
 
@@ -39,11 +40,10 @@ export default function Dashboard() {
           <Saved />
         )}
 
-        {page == "recommended" && <RecommendedPage />}
+        {page === "recommended" && <RecommendedPage />}
 
         {/* Later you can add: */}
-        {/* {page === "reviews" && <ReviewsPage />} */}
-        {/* {page === "recommended" && <RecommendedPage />} */}
+         {page === "reviews" && <ReviewPage />}
       </div>
     </div>
   );
