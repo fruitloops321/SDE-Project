@@ -1,71 +1,97 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from "react";
 import "/src/styles/signup.css";
 
-
 export default function SignUp() {
-    const navigate = useNavigate();
+    const [formValues, setFormValues] = useState({
+        firstName: "",
+        lastName: "",
+        username: "",
+        email: "",
+        password: "",
+    });
+
+    const handleChange = (e) => {
+        setFormValues({ ...formValues, [e.target.name]: e.target.value });
+    };
 
     return (
-        <div className="login-container">
-            {/* Aurora background */}
-            <div className="aurora-wrapper">
-                <div className="aurora"></div>
-            </div>
+        <div className="signup-container">
+            {/* Aurora Background */}
+            <div className="aurora"></div>
 
-            {/* Right-side sign up card */}
+            {/* SIGNUP CARD */}
             <div className="signup-card">
-                <div className="login-title">Create your <span>Savlo</span> Account</div>
-                <div className="login-subtitle">
-                    Start your reading journey with us today!
-                </div>
+                <h1 className="signup-title">Create your <span className="savlo-brand">Savlo</span> Account</h1>
+                <p className="signup-subtitle">Join Savlo now!</p>
 
-                <form className="login-form">
+                <form className="signup-form">
+                    {/* First + Last Name in one row */}
+                    <div className="name-row">
+                        <div className="form-group">
+                            <input
+                                type="text"
+                                name="firstName"
+                                value={formValues.firstName}
+                                onChange={handleChange}
+                                required
+                            />
+                            <label>First Name</label>
+                        </div>
 
-                    {/* First Name */}
-                    <div className="input-group small-label">
-                        <input type="text" required />
-                        <label>First Name</label>
-                    </div>
-
-                    {/* Last Name */}
-                    <div className="input-group small-label">
-                        <input type="text" required />
-                        <label>Last Name</label>
+                        <div className="form-group">
+                            <input
+                                type="text"
+                                name="lastName"
+                                value={formValues.lastName}
+                                onChange={handleChange}
+                                required
+                            />
+                            <label>Last Name</label>
+                        </div>
                     </div>
 
                     {/* Username */}
-                    <div className="input-group small-label">
-                        <input type="text" required />
+                    <div className="form-group">
+                        <input
+                            type="text"
+                            name="username"
+                            value={formValues.username}
+                            onChange={handleChange}
+                            required
+                        />
                         <label>Username</label>
                     </div>
 
                     {/* Email */}
-                    <div className="input-group small-label">
-                        <input type="email" required />
+                    <div className="form-group">
+                        <input
+                            type="email"
+                            name="email"
+                            value={formValues.email}
+                            onChange={handleChange}
+                            required
+                        />
                         <label>Email address</label>
                     </div>
 
                     {/* Password */}
-                    <div className="input-group small-label">
-                        <input type="password" required />
+                    <div className="form-group">
+                        <input
+                            type="password"
+                            name="password"
+                            value={formValues.password}
+                            onChange={handleChange}
+                            required
+                        />
                         <label>Password</label>
                     </div>
 
-                    <button
-                        type="button"
-                        className="login-btn"
-                        onClick={() => navigate("/dashboard")}
-                    >
-                        Join Savlo now!
-                    </button>
+                    {/* Submit Button */}
+                    <button className="signup-btn">Join Savlo</button>
                 </form>
 
-                <div className="login-footer">
-                    Already a Savlo member?{" "}
-                    <span className="login-link" onClick={() => navigate("/login")}>
-            Login
-          </span>
+                <div className="signup-footer">
+                    Already have an account? <a href="/login">Login</a>
                 </div>
             </div>
         </div>

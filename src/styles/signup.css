@@ -1,22 +1,14 @@
-/* Base layout (same as login) */
-.login-container {
+/* ===== FULL SCREEN LAYOUT ===== */
+.signup-container {
     width: 100vw;
     height: 100vh;
     overflow: hidden;
-    background: transparent;
+    background: #FFF4EA;
     position: relative;
     font-family: "Manrope", sans-serif;
 }
 
-
-.aurora-wrapper {
-    position: absolute;
-    inset: 0;
-    overflow: hidden;
-    z-index: 0;
-}
-
-/* Aurora belt */
+/* ===== AURORA BACKGROUND ===== */
 .aurora {
     position: absolute;
     top: -60vh;         /* move upward so only lower parts show */
@@ -39,112 +31,120 @@
 }
 
 @keyframes auroraPan {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-200vw); } /* was -100vw */
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-200vw); }
 }
 
-/* -------------------------------------- */
-/* SIGN UP CARD */
-/* -------------------------------------- */
-
+/* ===== SIGNUP CARD ===== */
 .signup-card {
+    width: 480px;
+    padding: 40px 48px;
+    background: rgba(255, 255, 255, 0.45);
+    backdrop-filter: blur(30px);
+    border-radius: 24px;
     position: absolute;
-    right: 6%;
+    right: 8%;
     top: 50%;
     transform: translateY(-50%);
-    width: 420px;
-    padding: 40px 42px;
-    background: rgba(255, 255, 255, 0.55);
-    backdrop-filter: blur(28px);
-    border-radius: 28px;
-    box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.15);
 }
 
-/* Title */
-.login-title {
+/* TITLE + SUBTITLE */
+.signup-title {
     font-size: 28px;
     font-weight: 700;
     text-align: center;
+    margin-bottom: 4px;
+    color: black;
 }
-.login-title span {
+
+.savlo-brand {
     text-decoration: underline;
+    color: black;
 }
 
-/* Subtitle */
-.login-subtitle {
-    margin-top: 4px;
-    font-size: 12px;
+.signup-subtitle {
     text-align: center;
-    opacity: 0.65;
-    margin-bottom: 22px;
-}
-
-/* Floating inputs */
-.input-group {
-    position: relative;
-    margin-bottom: 20px;
-}
-
-.input-group input {
-    width: 100%;
-    padding: 16px 18px;
-    border-radius: 40px;
-    border: none;
-    outline: none;
-    background: rgba(245,245,245,0.8);
-    font-size: 15px;
-}
-
-.input-group.small-label input {
-    padding-top: 20px;
-}
-
-.input-group label {
-    position: absolute;
-    left: 20px;
-    top: 50%;
-    transform: translateY(-50%);
-    pointer-events: none;
-    transition: 0.25s ease;
+    margin-bottom: 28px;
     font-size: 13px;
-    opacity: 0.55;
+    opacity: 0.7;
+    color: black;
 }
 
-.input-group input:focus + label,
-.input-group input:not(:placeholder-shown) + label {
-    top: 8px;
-    font-size: 10px;
-    opacity: 0.85;
+/* ===== INPUT FIELDS ===== */
+.signup-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
-/* Button */
-.login-btn {
+.name-row {
+    display: flex;
+    gap: 16px;
+    color: black;
+}
+
+.form-group {
+    position: relative;
+    width: 100%;
+    color: black;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 16px;
+    border-radius: 50px;
+    border: none;
+    background: #f8f8f8;
+    outline: none;
+    font-size: 14px;
+
+}
+
+.form-group label {
+    position: absolute;
+    top: 50%;
+    left: 18px;
+    transform: translateY(-50%);
+    font-size: 13px;
+    pointer-events: none;
+    transition: 0.25s;
+    opacity: 0.6;
+    color: black;
+}
+
+/* FLOATING LABEL */
+.form-group input:focus + label,
+.form-group input:not(:placeholder-shown) + label {
+    top: 6px;
+    font-size: 11px;
+    opacity: 1;
+
+}
+
+/* ===== BUTTON ===== */
+.signup-btn {
     width: 100%;
     padding: 14px;
-    background: #000;
+    margin-top: 10px;
+    background: black;
     color: white;
     border: none;
-    border-radius: 40px;
-    cursor: pointer;
-    margin-top: 10px;
+    border-radius: 50px;
     font-size: 15px;
-    transition: 0.2s ease;
-}
-
-.login-btn:hover {
-    opacity: 0.85;
-}
-
-/* Footer */
-.login-footer {
-    margin-top: 30px;
-    text-align: center;
-    font-size: 12px;
-    opacity: 0.7;
-}
-
-.login-footer .login-link {
-    font-weight: 600;
     cursor: pointer;
-    text-decoration: underline;
+}
+
+/* FOOTER */
+.signup-footer {
+    margin-top: 18px;
+    text-align: center;
+    font-size: 13px;
+    color: black;
+}
+
+.signup-footer a {
+    font-weight: 600;
+    color: black;
+    opacity: 60%;
 }
