@@ -239,3 +239,76 @@
         align-items: flex-start;
     }
 }
+
+.reviews-right-list {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    overflow: hidden;         /* we handle the “scroll” virtually */
+}
+
+.review-row {
+    display: grid;
+    grid-template-columns: minmax(0, 260px) minmax(0, 1fr) auto;
+    align-items: center;
+    padding: 16px 0;
+    transition:
+            transform 220ms ease-out,
+            opacity 200ms ease-out,
+            filter 200ms ease-out;
+}
+
+/* first 3 slots — full focus */
+.review-row.slot-0,
+.review-row.slot-1,
+.review-row.slot-2 {
+    transform: scale(1);
+    opacity: 1;
+    filter: none;
+}
+
+/* 4th slot – slightly smaller & faded */
+.review-row.slot-3 {
+    transform: scale(0.85);      /* ≈ 15% smaller */
+    opacity: 0.6;                /* as you requested */
+    filter: saturate(0.9);
+}
+
+/* Container for arrows */
+.reviews-nav-buttons {
+    position: absolute;
+    bottom: 24px;       /* distance from bottom */
+    right: 5px;        /* distance from right */
+    display: flex;
+    flex-direction: column;
+    gap: 8px;           /* space between arrows */
+    z-index: 10;
+}
+
+/* Make sure parent allows absolute positioning */
+.review-right {
+    position: relative;
+}
+
+
+
+/* Navigation arrows */
+.nav-arrow {
+    background: transparent;    /* Remove default background */
+    border: none;               /* Remove border */
+    color: #ffffff;             /* Make arrow white */
+    font-size: 20px;            /* Bigger arrow (optional) */
+    cursor: pointer;
+    padding: 4px;
+    line-height: 1;
+    font-weight: 700;
+}
+
+.nav-arrow:hover {
+    color: #cccccc;             /* Slight hover highlight */
+}
+
+.nav-arrow:active {
+    transform: translateY(1px);
+}
+

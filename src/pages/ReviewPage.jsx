@@ -1,5 +1,5 @@
 // src/pages/ReviewPage.jsx
-import React, { useState, useEffect } from "react";
+import React, { useState, useCallback, useMemo } from "react";
 import "/src/styles/reviewPage.css";
 
 const TRENDING_TITLES = [
@@ -38,7 +38,7 @@ const REVIEW_ROWS = [
         username: "@instantNoodles9",
         rating: "★★★★★",
         coverUrl: "/src/assets/cover4.jpg",
-        text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum lorem justo, aliquam at tristique a, rutrum at arcu, rutrum at arcu.",
+        text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum lorem justo, aliquam at tristique a, rutrum at arcu.",
     },
     {
         id: "welcome-hyunam",
@@ -46,83 +46,59 @@ const REVIEW_ROWS = [
         username: "@enviroReads",
         rating: "★★★★☆",
         coverUrl: "/src/assets/cover8.jpg",
-        text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum lorem justo, aliquam at tristique a, rutrum at arcu. Vivamus gravida...",
+        text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum lorem justo, aliquam at tristique a, rutrum at arcu.",
     },
-    // add more rows here later if you like
 ];
 
-function ReviewRow({ slot, review }) {
-    return (
-        <div className={`review-row review-row-${slot}`}>
-            {/* LEFT: cover + title + rating */}
-            <div className="review-row-left">
-                <div className="review-cover">
-                    <img src={review.coverUrl} alt={review.title} />
-                </div>
-                <div className="review-book-meta">
-                    <div className="review-book-title">{review.title}</div>
-                    <div className="review-book-rating">{review.rating}</div>
-                </div>
-            </div>
-
-            {/* MIDDLE: text */}
-            <div className="review-row-middle">
-                <p className="review-row-text">{review.text}</p>
-            </div>
-
-            {/* RIGHT: username + icon */}
-            <div className="review-row-right">
-                <span className="review-row-username">{review.username}</span>
-                <span className="review-row-icon">◎</span>
-            </div>
-        </div>
-    );
-}
-
 export default function ReviewPage() {
-    const [activeIndex, setActiveIndex] = useState(0);
+    const VISIBLE_SLOTS = 4;
 
-    // Auto-advance the wheel every 4 seconds
-    useEffect(() => {
-        const id = setInterval(() => {
-            setActiveIndex((prev) => (prev + 1) % REVIEW_ROWS.length);
-        }, 4000);
-
-        return () => clearInterval(id);
-    }, []);
-
+    const [cursor, setCursor] = useState(0);
     const total = REVIEW_ROWS.length;
 
-    // Build 4 slots: above, center, below, ghost (bottom)
-    const slots = [];
-    const offsets = [-1, 0, 1, 2]; // relative to activeIndex
+    // scroll step logic
+    const step = useCallback(
+        (direction) => {
+            setCursor((prev) => {
+                const next = (prev + direction + total) % total;
+                return next;
+            });
+        },
+        [total]
+    );
 
-    offsets.forEach((offset) => {
-        const idx = (activeIndex + offset + total) % total;
-        const review = REVIEW_ROWS[idx];
+    // prepare the 4 visible items
+    const visibleReviews = useMemo(
+        () =>
+            Array.from({ length: VISIBLE_SLOTS }, (_, i) => {
+                const index = (cursor + i) % total;
+                return { item: REVIEW_ROWS[index], slotIndex: i, key: index };
+            }),
+        [cursor, total]
+    );
 
-        let slotName;
-        if (offset === -1) slotName = "above";
-        else if (offset === 0) slotName = "center";
-        else if (offset === 1) slotName = "below";
-        else slotName = "ghost";
-
-        slots.push(
-            <ReviewRow key={`${review.id}-${slotName}`} slot={slotName} review={review} />
-        );
-    });
+    // mouse wheel scrolling
+    const handleWheel = useCallback(
+        (e) => {
+            if (e.deltaY > 0) step(1);
+            else if (e.deltaY < 0) step(-1);
+        },
+        [step]
+    );
 
     return (
         <div className="review-page">
             <div className="panel review-panel">
-                {/* header row: title + filter */}
+
+                {/* HEADER */}
                 <div className="review-header">
                     <h2 className="review-title">Reviews</h2>
                     <div className="review-filter">All ▾</div>
                 </div>
 
                 <div className="review-main">
-                    {/* LEFT: trending list, vertically centered */}
+
+                    {/* LEFT COLUMN */}
                     <aside className="review-left">
                         <div className="review-left-inner">
                             <p className="review-left-heading">Trending book this week</p>
@@ -137,10 +113,58 @@ export default function ReviewPage() {
                         </div>
                     </aside>
 
-                    {/* RIGHT: vertical review wheel */}
-                    <section className="review-right">
-                        <div className="review-wheel">{slots}</div>
-                    </section>
+                    {/* RIGHT COLUMN — review wheel */}
+                    <div className="review-right">
+
+                        <div className="reviews-right-list" onWheel={handleWheel}>
+                            {visibleReviews.map(({ item, slotIndex, key }) => (
+                                <div className={`review-row slot-${slotIndex}`} key={key}>
+
+                                    {/* LEFT — cover + meta */}
+                                    <div className="review-row-left">
+                                        <div className="review-cover">
+                                            <img src={item.coverUrl} alt={item.title} />
+                                        </div>
+
+                                        <div className="review-book-meta">
+                                            <div className="review-book-title">{item.title}</div>
+                                            <div className="review-book-rating">{item.rating}</div>
+                                        </div>
+                                    </div>
+
+                                    {/* MIDDLE — review text */}
+                                    <div className="review-row-middle">
+                                        <p className="review-row-text">{item.text}</p>
+                                    </div>
+
+                                    {/* RIGHT — user */}
+                                    <div className="review-row-right">
+                                        <span className="review-row-username">{item.username}</span>
+                                        <span className="review-row-icon">◎</span>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+
+                        {/* arrow buttons */}
+                        <div className="reviews-nav-buttons">
+                            <button
+                                type="button"
+                                className="nav-arrow nav-arrow-up"
+                                onClick={() => step(-1)}
+                            >
+                                ↑
+                            </button>
+                            <button
+                                type="button"
+                                className="nav-arrow nav-arrow-down"
+                                onClick={() => step(1)}
+                            >
+                                ↓
+                            </button>
+                        </div>
+
+                    </div>
                 </div>
             </div>
         </div>
