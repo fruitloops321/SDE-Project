@@ -1,6 +1,7 @@
 // src/pages/ReviewPage.jsx
 import React, { useState, useCallback, useMemo } from "react";
 import "/src/styles/reviewPage.css";
+import { useBookDetails } from "../book-details/BookDetailsContext.jsx";
 
 const TRENDING_TITLES = [
     "You Are Here",
@@ -22,7 +23,7 @@ const REVIEW_ROWS = [
         username: "@instantNoodles1",
         rating: "★★★★★",
         coverUrl: "/src/assets/yah.jpg",
-        text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum lorem justo, aliquam at tristique a, rutrum at arcu. Vivamus gravida...",
+        text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum lorem justo...",
     },
     {
         id: "strange-houses",
@@ -30,7 +31,7 @@ const REVIEW_ROWS = [
         username: "@instantNoodles5",
         rating: "★★★★☆",
         coverUrl: "/src/assets/cover6.jpg",
-        text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum lorem justo, aliquam at tristique a, rutrum at arcu.",
+        text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum lorem justo...",
     },
     {
         id: "year-of-living-curiously",
@@ -38,7 +39,7 @@ const REVIEW_ROWS = [
         username: "@instantNoodles9",
         rating: "★★★★★",
         coverUrl: "/src/assets/cover4.jpg",
-        text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum lorem justo, aliquam at tristique a, rutrum at arcu.",
+        text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum lorem justo...",
     },
     {
         id: "welcome-hyunam",
@@ -46,28 +47,25 @@ const REVIEW_ROWS = [
         username: "@enviroReads",
         rating: "★★★★☆",
         coverUrl: "/src/assets/cover8.jpg",
-        text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum lorem justo, aliquam at tristique a, rutrum at arcu.",
+        text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum lorem justo...",
     },
 ];
 
 export default function ReviewPage() {
-    const VISIBLE_SLOTS = 4;
+    /** ✔ Correct context function */
+    const { openBookDetails } = useBookDetails();
 
+    const VISIBLE_SLOTS = 4;
     const [cursor, setCursor] = useState(0);
     const total = REVIEW_ROWS.length;
 
-    // scroll step logic
     const step = useCallback(
         (direction) => {
-            setCursor((prev) => {
-                const next = (prev + direction + total) % total;
-                return next;
-            });
+            setCursor((prev) => (prev + direction + total) % total);
         },
         [total]
     );
 
-    // prepare the 4 visible items
     const visibleReviews = useMemo(
         () =>
             Array.from({ length: VISIBLE_SLOTS }, (_, i) => {
@@ -77,7 +75,6 @@ export default function ReviewPage() {
         [cursor, total]
     );
 
-    // mouse wheel scrolling
     const handleWheel = useCallback(
         (e) => {
             if (e.deltaY > 0) step(1);
@@ -86,19 +83,38 @@ export default function ReviewPage() {
         [step]
     );
 
+    /** ✔ Converts review row → bookDetails object */
+    function convertReviewToBookObject(review) {
+        return {
+            id: review.id,
+            title: review.title,
+            author: review.username.replace("@", ""),
+            rating: review.rating.length,
+            publishedDate: "Unknown",
+            description: review.text,
+            genres: ["Fiction"],
+            format: "Paperback",
+            pages: 300,
+            coverUrl: review.coverUrl,
+        };
+    }
+
+    /** ✔ Helper for opening */
+    function handleOpen(item) {
+        const bookObj = convertReviewToBookObject(item);
+        openBookDetails(bookObj); // ✔ correct global call
+    }
+
     return (
         <div className="review-page">
             <div className="panel review-panel">
-
-                {/* HEADER */}
                 <div className="review-header">
                     <h2 className="review-title">Reviews</h2>
                     <div className="review-filter">All ▾</div>
                 </div>
 
                 <div className="review-main">
-
-                    {/* LEFT COLUMN */}
+                    {/* LEFT: trending titles */}
                     <aside className="review-left">
                         <div className="review-left-inner">
                             <p className="review-left-heading">Trending book this week</p>
@@ -113,26 +129,33 @@ export default function ReviewPage() {
                         </div>
                     </aside>
 
-                    {/* RIGHT COLUMN — review wheel */}
+                    {/* RIGHT: review wheel */}
                     <div className="review-right">
-
                         <div className="reviews-right-list" onWheel={handleWheel}>
                             {visibleReviews.map(({ item, slotIndex, key }) => (
                                 <div className={`review-row slot-${slotIndex}`} key={key}>
 
                                     {/* LEFT — cover + meta */}
                                     <div className="review-row-left">
-                                        <div className="review-cover">
+                                        <div
+                                            className="review-cover clickable"
+                                            onClick={() => handleOpen(item)}
+                                        >
                                             <img src={item.coverUrl} alt={item.title} />
                                         </div>
 
                                         <div className="review-book-meta">
-                                            <div className="review-book-title">{item.title}</div>
+                                            <div
+                                                className="review-book-title clickable"
+                                                onClick={() => handleOpen(item)}
+                                            >
+                                                {item.title}
+                                            </div>
                                             <div className="review-book-rating">{item.rating}</div>
                                         </div>
                                     </div>
 
-                                    {/* MIDDLE — review text */}
+                                    {/* MIDDLE — text */}
                                     <div className="review-row-middle">
                                         <p className="review-row-text">{item.text}</p>
                                     </div>
@@ -163,8 +186,8 @@ export default function ReviewPage() {
                                 ↓
                             </button>
                         </div>
-
                     </div>
+
                 </div>
             </div>
         </div>
