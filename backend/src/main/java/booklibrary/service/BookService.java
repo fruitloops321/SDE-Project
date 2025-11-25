@@ -29,9 +29,6 @@ public class BookService {
         return bookRepository.findById(bookId);
     }
 
-    public List<Book> searchBooks(String query) {
-        return bookRepository.findByTitleContainingIgnoreCase(query);
-    }
 
     public Book createBook(BookDTO book) {
         Book bookEntity = new Book();

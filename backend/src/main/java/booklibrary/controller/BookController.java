@@ -31,11 +31,6 @@ public class BookController {
                 .orElseThrow(() -> new RuntimeException("Book not found"));
     }
 
-    @GetMapping("/search")
-    public List<Book> searchBooks(@RequestParam String query) {
-        return bookService.searchBooks(query);
-    }
-
     @PostMapping
     public Book createBook(@RequestBody BookDTO book) {
         return bookService.createBook(book);
