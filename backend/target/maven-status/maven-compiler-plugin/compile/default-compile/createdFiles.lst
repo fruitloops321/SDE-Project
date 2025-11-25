@@ -1,0 +1,8 @@
+booklibrary\controller\BookController.class
+booklibrary\service\AuthService.class
+booklibrary\dto\LoginRequest.class
+booklibrary\BookLibrarySdeProjectApplication.class
+booklibrary\config\DataLoader.class
+booklibrary\repository\UserRepository.class
+booklibrary\controller\AuthController.class
+booklibrary\entity\User.class
