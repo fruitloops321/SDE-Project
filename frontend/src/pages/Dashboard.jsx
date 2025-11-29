@@ -11,40 +11,39 @@ import RecommendedPage from "/src/pages/RecommendPage.jsx";
 import ReviewPage from "./ReviewPage.jsx";
 
 
-
 export default function Dashboard() {
 
-  const [page, setPage] = useState("home");                     // "home" | "saved" | etc.
-  const { saveBook, removeBook, isSaved } = useSavedBooks();
+    const [page, setPage] = useState("home");                     // "home" | "saved" | etc.
+    const { saveBook, removeBook, isSaved } = useSavedBooks();
 
-  return (
-    <div className="dashboard">
+    return (
+        <div className="dashboard">
 
-      <Sidebar activePage={page} onNavigate={setPage} />        {/* Pass page + setter to Sidebar */}
+            <Sidebar activePage={page} onNavigate={setPage} />        {/* Pass page + setter to Sidebar */}
 
-      <div className="main">
-        <Header />
+            <div className="main">
+                <Header />
 
-                                                                {/* PAGE SWITCHING */}
-        {page === "home" && (
-          <>
-            <div className="top-grid">
-              <Recommended />
-              <CalendarWidget />
+                {/* PAGE SWITCHING */}
+                {page === "home" && (
+                    <>
+                        <div className="top-grid">
+                            <Recommended />
+                            <CalendarWidget />
+                        </div>
+                        <Reviews />
+                    </>
+                )}
+
+                {page === "saved" && (
+                    <Saved />
+                )}
+
+                {page === "recommended" && <RecommendedPage />}
+
+                {/* Later you can add: */}
+                {page === "reviews" && <ReviewPage />}
             </div>
-            <Reviews />
-          </>
-        )}
-
-        {page === "saved" && (
-          <Saved />
-        )}
-
-        {page === "recommended" && <RecommendedPage />}
-
-        {/* Later you can add: */}
-         {page === "reviews" && <ReviewPage />}
-      </div>
-    </div>
-  );
+        </div>
+    );
 }
