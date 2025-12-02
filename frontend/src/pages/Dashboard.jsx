@@ -9,6 +9,7 @@ import '../styles/dashboard.css';
 import { useSavedBooks } from "/src/components/Saved/SavedBooksContext.jsx";
 import RecommendedPage from "/src/pages/RecommendPage.jsx";
 import ReviewPage from "./ReviewPage.jsx";
+import Profile from "./Profile.jsx";
 
 
 export default function Dashboard() {
@@ -43,6 +44,8 @@ export default function Dashboard() {
 
                 {/* Later you can add: */}
                 {page === "reviews" && <ReviewPage />}
+                {page === "profile" && <Profile />}
+
             </div>
         </div>
     );

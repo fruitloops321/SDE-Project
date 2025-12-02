@@ -75,13 +75,6 @@ export default function LoginPage({ onLogin }) {
                         <label className="floating-label">Password</label>
                     </div>
 
-                    <div className="login-options">
-                        <div>
-                            <input type="checkbox" id="remember" />
-                            <label htmlFor="remember">&nbsp; Remember Me</label>
-                        </div>
-                        <a>Forgot Password</a>
-                    </div>
 
                     {/* Error text */}
                     {error && <div className="login-error">{error}</div>}

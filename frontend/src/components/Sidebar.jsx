@@ -66,11 +66,15 @@ export default function Sidebar({ activePage, onNavigate }) {
       {/*no active state needed */}
       <div className="group bottom">
         <div className="group-container">
-          {bottomIcons.map((item) => (
-            <div key={item.id} className="icon-wrapper">
-              <div className="icon">{item.icon}</div>
-              <div className="tooltip">{item.label}</div>
-            </div>
+            {bottomIcons.map((item) => (
+                <div
+                    key={item.id}
+                    className={`icon-wrapper ${activePage === item.id ? "active" : ""}`}
+                    onClick={() => onNavigate(item.id)}
+                >
+                    <div className="icon">{item.icon}</div>
+                    <div className="tooltip">{item.label}</div>
+                </div>
           ))}
         </div>
       </div>
