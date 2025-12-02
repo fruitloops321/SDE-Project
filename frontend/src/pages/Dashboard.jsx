@@ -10,6 +10,7 @@ import { useSavedBooks } from "/src/components/Saved/SavedBooksContext.jsx";
 import RecommendedPage from "/src/pages/RecommendPage.jsx";
 import ReviewPage from "./ReviewPage.jsx";
 import Profile from "./Profile.jsx";
+import ReadingHabitsCard from "../components/Saved/ReadingHabitsCard.jsx";
 
 
 export default function Dashboard() {
@@ -41,7 +42,7 @@ export default function Dashboard() {
                     <>
                         <div className="top-grid">
                             <Recommended />
-                            <CalendarWidget />
+                            <ReadingHabitsCard />
                         </div>
                         <Reviews />
                     </>

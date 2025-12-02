@@ -122,3 +122,133 @@
   .top-grid { grid-template-columns: 1fr; }
   .sidebar { display:none; }
 }
+
+
+/* ============================= */
+/* READING HABITS CALENDAR CARD */
+/* ============================= */
+
+.reading-habits-panel {
+    padding: 0; /* panel padding handled inside card */
+}
+
+.reading-habits-card {
+    padding: 20px 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.reading-habits-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.reading-habits-title {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.reading-habits-month {
+    font-size: 12px;
+    opacity: 0.8;
+}
+
+/* grid */
+
+.reading-habits-grid {
+    margin-top: 8px;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    row-gap: 8px;
+    column-gap: 4px;
+    font-size: 13px;
+}
+
+.reading-habits-weekday {
+    text-align: center;
+    font-size: 11px;
+    opacity: 0.6;
+}
+
+/* days */
+
+.reading-habits-day {
+    width: 32px;
+    height: 32px;
+    margin: 0 auto;
+    border-radius: 999px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    color: inherit;
+    cursor: pointer;
+    transition: background 0.18s ease-out, color 0.18s ease-out,
+    transform 0.16s ease-out, box-shadow 0.16s ease-out, border 0.16s ease-out;
+}
+
+.reading-habits-day.empty {
+    cursor: default;
+}
+
+.reading-habits-day:not(.empty):hover {
+    background: rgba(255, 255, 255, 0.06);
+}
+
+/* selected (but not yet logged) */
+.reading-habits-day.selected:not(.read) {
+    border: 1px solid var(--accent);
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* logged / "read" days */
+.reading-habits-day.read {
+    background: green;
+    color: #101010;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.25);
+}
+
+/* LIGHT MODE tweak for contrast */
+body.light-mode .reading-habits-day.read {
+    color: #ffffff;
+}
+
+/* footer + button */
+
+.reading-habits-footer {
+    margin-top: 10px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.reading-habits-button {
+    padding: 6px 16px;
+    border-radius: 999px;
+    border: none;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    background: #1ee94a;
+    color: #0a0a0a;
+    box-shadow: 0 4px 12px rgba(0, 255, 0, 0.3);
+    transition: transform 0.12s ease-out, box-shadow 0.12s ease-out,
+    background 0.12s ease-out, opacity 0.12s ease-out;
+}
+
+.reading-habits-button:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.35);
+}
+
+.reading-habits-button:active:not(:disabled) {
+    transform: translateY(0);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.25);
+}
+
+.reading-habits-button:disabled {
+    opacity: 0.55;
+    cursor: default;
+}
