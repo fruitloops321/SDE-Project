@@ -1,0 +1,338 @@
+/* ───────────────────────────────────────────────
+   OUTER PAGE LAYOUT
+─────────────────────────────────────────────── */
+
+.profile-page {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    overflow: hidden;                /* Prevent page scrolling */
+    padding-top: 32px;
+}
+
+/* main glass panel (matches recommended/saved width) */
+.profile-panel {
+    width: 100%;                      /* Same width as your other panels */
+    height: 80%;
+    margin-top: -30px;
+    max-width: 1500px;
+    min-height: 640px;               /* Fits entire layout without scrolling */
+    margin-bottom: 32px;
+
+    border-radius: 28px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+
+    /* glassmorphism */
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(18px);
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.45);
+}
+
+/* ───────────────────────────────────────────────
+   PROFILE CARD (TOP SECTION)
+─────────────────────────────────────────────── */
+
+.profile-card {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.10);
+    border-radius: 22px;
+    padding: 28px 36px;
+
+    display: flex;
+    gap: 32px;
+    align-items: center;
+
+    min-height: 220px;              /* Reduced size to avoid scrolling */
+}
+
+/* avatar column */
+.profile-card-left {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.profile-avatar {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.profile-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* right-side main profile information */
+.profile-card-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.profile-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* block that contains name + username + follower line */
+.profile-name-block {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.profile-name {
+    font-size: 26px;
+    color: #fff;
+    margin-bottom: 0;
+}
+
+/* username row under the name */
+.profile-username-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* static username text */
+.profile-username {
+    font-size: 13px;
+    color: #ffffff;
+    opacity: 0.7;
+}
+
+/* input when editing username */
+.profile-username-input {
+    background: rgba(0, 0, 0, 0.35);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    border-radius: 999px;
+    padding: 4px 10px;
+    font-size: 13px;
+    color: #ffffff;
+    outline: none;
+}
+
+/* small "Edit" button for username */
+.profile-username-edit-btn {
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 12px;
+    cursor: pointer;
+    padding: 2px 4px;
+}
+
+/* shared inline action buttons (Save / Cancel) */
+.profile-inline-actions {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.profile-inline-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.85);
+    padding: 2px 4px;
+}
+
+.profile-inline-cancel {
+    opacity: 0.6;
+}
+
+.profile-follow {
+    font-size: 13px;
+    opacity: 0.7;
+    color: #fff;
+    margin-top: 4px;
+}
+
+.profile-connect-btn {
+    background: #2ecc71;
+    color: #0d0d0d;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 18px;
+    font-size: 13px;
+    cursor: pointer;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.profile-connect-plus {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+/* ───────────────────────────────────────────────
+   BIO SECTION
+─────────────────────────────────────────────── */
+
+.profile-bio {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.profile-bio-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.profile-bio-title {
+    font-size: 15px;
+    color: #fff;
+    margin-bottom: 0;
+}
+
+/* "Edit" button for bio */
+.profile-bio-edit-btn {
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 12px;
+    cursor: pointer;
+    padding: 2px 4px;
+}
+
+.profile-bio-text {
+    font-size: 13px;
+    line-height: 1.45;
+    opacity: 0.85;
+    color: #fff;
+}
+
+/* textarea when editing bio */
+.profile-bio-textarea {
+    font-size: 13px;
+    line-height: 1.45;
+    color: #ffffff;
+    background: rgba(0, 0, 0, 0.35);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    padding: 8px 10px;
+    resize: vertical;
+    min-height: 80px;
+    outline: none;
+}
+
+/* ───────────────────────────────────────────────
+   SAVED BOOKS SECTION
+─────────────────────────────────────────────── */
+
+.profile-saved-section {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.profile-saved-title {
+    font-size: 18px;
+    color: #fff;
+}
+
+.profile-saved-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.profile-saved-header-icons {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.profile-saved-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    opacity: 0.7;
+}
+
+/* scroll arrow */
+.profile-saved-arrow {
+    background: none;
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* wrapper that clips overflow */
+.profile-saved-strip-wrapper {
+    width: 100%;
+    overflow: hidden;
+}
+
+/* horizontal scrolling strip */
+.profile-saved-strip {
+    display: flex;
+    gap: 32px;
+    overflow-x: auto;
+    padding-bottom: 8px;
+
+    scrollbar-width: none;     /* Firefox */
+}
+
+.profile-saved-strip::-webkit-scrollbar {
+    display: none;             /* Chrome */
+}
+
+/* book card */
+.profile-saved-card {
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+    width: 130px;              /* reduced size */
+}
+
+.profile-saved-cover {
+    width: 100px;
+    height: 150px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.profile-saved-cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.profile-saved-book-title {
+    margin-top: 8px;
+    font-size: 13px;
+    color: #fff;
+    opacity: 0.85;
+}
+
+/* empty state */
+.profile-saved-empty {
+    font-size: 13px;
+    opacity: 0.75;
+    color: #fff;
+}

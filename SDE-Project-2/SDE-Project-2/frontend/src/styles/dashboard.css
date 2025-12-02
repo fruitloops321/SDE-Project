@@ -1,0 +1,124 @@
+/* Dashboard global layout */
+.dashboard {
+  display: flex;
+  min-height: 100vh;
+  gap: 28px;
+  padding: 20px 32px;
+  background:
+    radial-gradient(800px 400px at 20% 20%, rgba(255,255,255,0.02), transparent 10%),
+    radial-gradient(600px 300px at 80% 10%, rgba(255,255,255,0.015), transparent 10%),
+    linear-gradient(180deg, #1a1a1a 0%, #0f0f0f 100%);
+}
+
+/* Left sidebar */
+.sidebar {
+  width: 84px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  padding: 18px 8px;
+}
+
+.sidebar .pill {
+  width: 56px;
+  height: 56px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 16px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  transition: all .18s ease;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.6), inset 0 -2px 6px rgba(255,255,255,0.02);
+}
+
+.sidebar .pill.active {
+  background: var(--white);
+  color: #111;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.65);
+}
+
+/* Main content column */
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+/* Top row: header and search */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 12px;
+}
+.header .greeting {
+  display:flex;
+  flex-direction:column;
+}
+.header h1 {
+  margin:0;
+  font-size: 20px;
+  font-weight: 600;
+  color: #f5f5f5;
+}
+.header p {
+  margin: 4px 0 0 0;
+  font-size: 12px;
+  opacity: 0.7;
+  color: var(--muted);
+}
+
+/* search */
+.search {
+  display:flex;
+  align-items:center;
+}
+.search input {
+  background: rgba(255,255,255,0.04);
+  border: none;
+  color: #eee;
+  padding: 10px 16px;
+  border-radius: 28px;
+  width: 320px;
+  outline: none;
+  box-shadow: inset 0 -1px 0 rgba(255,255,255,0.02);
+}
+
+/* Recommended + Card positioning */
+.top-grid {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 20px;
+}
+
+/* Cards styling and property (All) */
+.panel {
+  border-radius: var(--card-radius);
+  padding: 20px;
+  background: #1c1a1a;
+  box-shadow:
+    0 0px 50px rgba(251,251,246,0.25),
+    inset 0 5px 30px rgba(251,251,246,0.25); /*inset x y towards-middle colour*/
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.03);
+}
+
+
+/* small button */
+.btn {
+  background: rgba(255,255,255,0.06);
+  color: #fff;
+  border-radius: 12px;
+  padding: 8px 12px;
+  font-size: 13px;
+  border: none;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1000px) {
+  .top-grid { grid-template-columns: 1fr; }
+  .sidebar { display:none; }
+}
