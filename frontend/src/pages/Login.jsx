@@ -2,8 +2,9 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "/src/styles/login.css";
 import api from "../utils/api.jsx";
+import { Link } from "react-router-dom";
 
-export default function LoginPage({ onLogin }) {
+export function LoginPage({onLogin}) {
     const [username, setUsername] = useState("");
     const [pw, setPw] = useState("");
     const [error, setError] = useState("");
@@ -89,8 +90,9 @@ export default function LoginPage({ onLogin }) {
                     </button>
 
                     <div className="login-footer">
-                        New to Savlo? <a>Sign Up</a>
+                        New to Savlo? <Link to="/signup">Sign Up</Link>
                     </div>
+
                 </div>
             </div>
         </div>
