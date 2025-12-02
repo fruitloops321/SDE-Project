@@ -17,6 +17,17 @@ export default function Dashboard() {
     const [page, setPage] = useState("home");                     // "home" | "saved" | etc.
     const { saveBook, removeBook, isSaved } = useSavedBooks();
 
+    // Handle logout globally
+    if (page === "logout") {
+        // Clear stored login data
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+
+        // Send back to login page
+        window.location.reload();
+    }
+
+
     return (
         <div className="dashboard">
 
