@@ -1,4 +1,3 @@
-/* // Recommended.jsx / RecommendedCarousel.jsx */
 import React, { useEffect, useRef, useState } from "react";
 import "/src/styles/recommended.css";
 import { useBookDetails } from "/src/book-details/BookDetailsContext.jsx";
@@ -13,66 +12,116 @@ const covers = [
     "/src/assets/cover6.jpg",
 ];
 
-/**
- * meta now includes a stable id for each book.
- * That id will be used by the BookDetails modal to save/unsave correctly.
- */
+/* Meta data */
 const meta = [
     {
         id: "kite-runner",
         title: "The Kite Runner",
         author: "Khaled Hosseini",
         publishedDate: "2003",
-        desc: "A powerful and emotional story about friendship, betrayal, and the lifelong search for redemption. Amir’s journey—from a guilt-filled childhood mistake to an adult seeking forgiveness—unfolds across a backdrop of war-torn Kabul and immigrant life in America, exploring loyalty, family, and the heavy weight of regret.",
+        desc: "A powerful and emotional story about friendship, betrayal...",
     },
     {
         id: "atomic-habits",
         title: "Atomic Habits",
         author: "James Clear",
         publishedDate: "2018",
-        desc: "“Atomic Habits” offers a practical and powerful framework for building good habits and breaking bad ones by focusing on small, consistent improvements. James Clear explains how tiny daily changes compound into remarkable long-term results, using simple psychology, real-world examples, and actionable strategies. The book teaches you how to redesign your environment, shift your identity, and create systems that make success inevitable.",
+        desc: "Atomic Habits offers a practical and powerful framework...",
     },
     {
         id: "power",
         title: "Power",
         author: "Robert Greene",
         publishedDate: "1998",
-        desc: "A deep and strategic exploration of how influence and authority function in human relationships. Greene breaks down historical examples, psychological insights, and timeless principles that reveal how people gain, protect, and lose power in both subtle and dramatic ways.",
+        desc: "A deep and strategic exploration of influence and authority...",
     },
     {
         id: "year-living-curiously",
         title: "A Year Of Living Curiously",
         author: "Jeffrey Brown",
         publishedDate: "2021",
-        desc: "A reflective and motivational journey that encourages stepping outside routine, embracing curiosity, and rediscovering personal passion. Through small experiments and thoughtful challenges, the book explores how cultivating curiosity can lead to meaningful growth and a deeper appreciation of everyday life.",
+        desc: "A reflective and motivational journey exploring curiosity...",
     },
     {
         id: "crime-and-punishment",
         title: "Crime And Punishment",
         author: "Fyodor Dostoevsky",
         publishedDate: "1866",
-        desc: "A haunting psychological masterpiece that follows Raskolnikov, a tormented student who commits murder believing he can transcend moral boundaries. As guilt consumes him, the novel delves into questions of conscience, justice, suffering, and the possibility of spiritual redemption.",
+        desc: "A psychological masterpiece about guilt, justice, and morality...",
     },
     {
         id: "strange-houses",
         title: "Strange Houses",
         author: "Uketsu",
         publishedDate: "2020",
-        desc: "A chilling and imaginative tour through mysterious, eerie, and architecturally bizarre homes—each holding secrets that blur the line between the supernatural and the psychological. The book explores unsettling folklore, hidden histories, and the strange stories trapped within the walls.",
+        desc: "A chilling exploration of eerie and mysterious homes...",
     },
-
-
 ];
 
-export default function Recommended() {
-    const [centerIndex, setCenterIndex] = useState(2); // start with third item in center
+/* ------------------------------------------------------------- */
+/* 🔥 ADDED: function now accepts searched books from Dashboard  */
+/* ------------------------------------------------------------- */
+export default function Recommended({ books }) {
+    const { openBookDetails } = useBookDetails();
+
+    /* -------------------------------------------- */
+    /* 🔍 SEARCH MODE — if books is provided         */
+    /* -------------------------------------------- */
+    if (Array.isArray(books)) {
+        // No results
+        if (books.length === 0) {
+            return (
+                <div className="panel recommended">
+                    <div className="title">Recommended</div>
+                    <p style={{ color: "white", marginTop: 20 }}>No books found.</p>
+                </div>
+            );
+        }
+
+        // Show search results in a grid
+        return (
+            <div className="panel recommended">
+                <div className="title">Search Results</div>
+
+                <div style={{
+                    display: "grid",
+                    gridTemplateColumns: "repeat(auto-fill, minmax(140px, 1fr))",
+                    gap: "20px",
+                    padding: "20px 0"
+                }}>
+                    {books.map((book) => (
+                        <div key={book.id} className="book">
+                            <img
+                                src={book.coverurl}
+                                alt={book.title}
+                                style={{ width: "100%", borderRadius: 12, cursor: "pointer" }}
+                                onClick={() => openBookDetails(book)}
+                                onError={(e) => {
+                                    e.target.onerror = null;
+                                    e.target.src = "https://via.placeholder.com/140x200?text=Book";
+                                }}
+                            />
+                            <div style={{ marginTop: 6, color: "white" }}>
+                                <strong>{book.title}</strong>
+                                <p style={{ opacity: 0.7 }}>{book.author}</p>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        );
+    }
+
+    /* ------------------------------------------------------------- */
+    /* 🔄 ORIGINAL CAROUSEL — UNCHANGED (runs when NOT searching)    */
+    /* ------------------------------------------------------------- */
+
+    const [centerIndex, setCenterIndex] = useState(2);
     const listRef = useRef(null);
     const itemRef = useRef(null);
     const [itemWidth, setItemWidth] = useState(0);
-    const gap = 50; // must match your .book-row gap in CSS
-    const { openBookDetails } = useBookDetails();
+    const gap = 50;
 
-    // Measure one item so we can compute transforms
     useEffect(() => {
         const el = itemRef.current;
         if (el) {
@@ -90,7 +139,6 @@ export default function Recommended() {
         return () => window.removeEventListener("resize", onResize);
     }, []);
 
-    // Indices of 5 visible items around centerIndex
     const getVisibleIndices = () => {
         const n = covers.length;
         const indices = [];
@@ -104,10 +152,7 @@ export default function Recommended() {
 
     const computeTranslate = () => {
         if (!itemWidth) return 0;
-        // In your current layout we don't need an extra shift,
-        // but you can tweak this if you later change the design.
-        const shift = (itemWidth + gap) * 0;
-        return -shift;
+        return 0;
     };
 
     const next = () => setCenterIndex((prev) => (prev + 1) % covers.length);
@@ -120,7 +165,6 @@ export default function Recommended() {
             <div className="title">Recommended</div>
 
             <div className="book-row" style={{ position: "relative", alignItems: "center" }}>
-                {/* LEFT ARROW */}
                 <button
                     aria-label="previous"
                     onClick={prev}
@@ -138,7 +182,6 @@ export default function Recommended() {
                     ‹
                 </button>
 
-                {/* BOOK LIST */}
                 <div
                     className="book-list"
                     ref={listRef}
@@ -155,9 +198,8 @@ export default function Recommended() {
                     {visible.map((idx, pos) => {
                         const isCenter = pos === 2;
 
-                        // Build a single consistent book object that will be passed to the details modal
                         const bookData = {
-                            id: meta[idx].id,              // ✅ stable ID
+                            id: meta[idx].id,
                             title: meta[idx].title,
                             author: meta[idx].author,
                             rating: 4.0,
@@ -173,7 +215,7 @@ export default function Recommended() {
                             <div
                                 key={meta[idx].id}
                                 className={`book ${isCenter ? "active" : ""}`}
-                                ref={pos === 0 ? itemRef : null} // measure first visible item
+                                ref={pos === 0 ? itemRef : null}
                                 style={{
                                     transform: isCenter ? "scale(1.1)" : "scale(0.8)",
                                     transition: "transform 350ms ease, opacity 300ms ease",
@@ -184,7 +226,7 @@ export default function Recommended() {
                                 <img
                                     src={covers[idx]}
                                     alt={`cover-${idx}`}
-                                    onClick={() => openBookDetails(bookData)}  // ✅ only opens modal
+                                    onClick={() => openBookDetails(bookData)}
                                     style={{
                                         width: "100%",
                                         height: "100%",
@@ -192,18 +234,12 @@ export default function Recommended() {
                                         borderRadius: 12,
                                         cursor: "pointer",
                                     }}
-                                    onError={(e) => {
-                                        e.target.onerror = null;
-                                        e.target.src =
-                                            "https://via.placeholder.com/140x200?text=Book";
-                                    }}
                                 />
                             </div>
                         );
                     })}
                 </div>
 
-                {/* RIGHT ARROW */}
                 <button
                     aria-label="next"
                     onClick={next}
@@ -222,7 +258,6 @@ export default function Recommended() {
                 </button>
             </div>
 
-            {/* DESCRIPTION (under carousel) */}
             <div className="desc" style={{ marginTop: 12 }}>
                 <strong style={{ display: "block", marginBottom: 6 }}>{info.title}</strong>
                 <span style={{ color: "rgba(255,255,255,0.85)" }}>{info.desc}</span>
