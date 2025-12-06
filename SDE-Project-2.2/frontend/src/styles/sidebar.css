@@ -1,0 +1,112 @@
+.sidebar {
+  width: 80px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  padding: 1rem 0;
+  background: transparent;
+  position: relative;
+  font-family: "Manrope", sans-serif;
+  flex-shrink: 0;
+}
+
+/* Logo at top */
+.logo {
+  width: 50px;
+  height: 50px;
+  background: white;
+  border-radius: 50%;
+  color: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1rem;
+  min-height: 40px;
+
+}
+
+.bottom {
+  margin-top: 60px; /* pushes bottom group down to the bottom */
+  margin-bottom: 1rem;
+}
+
+/* White capsule container for each group */
+.group-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: white;
+  border-radius: 50px;
+  padding: 10px 0;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+/* Icon buttons */
+.icon-wrapper {
+  position: relative;
+  width: 45px;
+  height: 45px;
+  margin: 0 auto;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.icon {
+  color: #000;
+  z-index: 5;
+  transition: color 0.8s;
+}
+
+.icon-wrapper.active {
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  background: #1EE94A;
+  box-shadow: 0 0 8px rgba(0, 255, 102, 0.5);
+
+}
+
+.icon-wrapper:hover .icon {
+  color: #34e907;
+}
+
+/* Tooltip appears above the hovered icon */
+.tooltip {
+  position: absolute;
+  top: -15px;
+  left: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.85);
+  color: white;                    /*Color of hover font*/
+  padding: 5px 10px;
+  border-radius: 6px;
+  font-size: 13px;
+  opacity: 0;
+  white-space: nowrap;
+  pointer-events: none;
+  transition: 0.2s ease;
+  z-index: 9999;
+}
+
+.icon-wrapper:hover .tooltip {
+  opacity: 0.8;
+  transform: translateY(80%) translateX(30%);
+}
+
+/* Space sections properly */
+.middle {
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.bottom {
+  margin-bottom: 1rem;
+}
